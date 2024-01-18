@@ -1,13 +1,14 @@
 package com.example.InfoNations.controller;
 
 import com.example.InfoNations.entity.User;
+import com.example.InfoNations.network.LoginDto;
 import com.example.InfoNations.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/")
+@RequestMapping(value = "/")
 public class UserController {
     private final UserService userService;
 
@@ -26,5 +27,9 @@ public class UserController {
     @DeleteMapping("/user/{id}")
     public void delUser(@PathVariable Long id){
         userService.delUser(id);
+    }
+    @PostMapping("/loginProc")
+    public User userLogin(@RequestBody LoginDto loginDto){
+        return userService.userLogin(loginDto);
     }
 }

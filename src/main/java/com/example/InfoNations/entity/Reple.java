@@ -1,5 +1,6 @@
 package com.example.InfoNations.entity;
 
+import com.example.InfoNations.entity.Nation;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -16,7 +17,6 @@ public class Reple {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content;
-    @ManyToOne
-    private Nation nation;
+    private String contents;
+    private Long nationId;
 }

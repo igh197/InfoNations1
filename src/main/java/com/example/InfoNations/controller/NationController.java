@@ -1,12 +1,9 @@
 package com.example.InfoNations.controller;
 
 import com.example.InfoNations.entity.Nation;
-import com.example.InfoNations.network.Header;
+import com.example.InfoNations.network.NationDto;
 import com.example.InfoNations.service.NationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,16 +20,16 @@ public class NationController {
         return nationService.save(nation);
     }
     @GetMapping("/nations")
-    public Header<List<Nation>> searchNations(@PageableDefault Pageable pageable){
-        return nationService.search(pageable);
+    public List<Nation> searchNations(){
+        return nationService.search();
     }
-    @GetMapping("/nation/{id}")
-    public Nation getNation(@PathVariable Long id){
-        return nationService.getNation(id);
+    @GetMapping("/nation/{name}")
+    public Nation getNation(@PathVariable String name){
+        return nationService.getNation(name);
     }
-    @PutMapping("/nation/{id}")
-    public void putNation(@PathVariable Long id, @RequestBody Nation nation){
-        nationService.putNation(nation,id);
+    @PutMapping("/nation/{name}")
+    public NationDto putNation(@PathVariable String name, @RequestBody NationDto nationDto){
+        return nationService.putNation(name,nationDto);
     }
     @DeleteMapping("/nation/{id}")
     public void deleteNation(@PathVariable Long id){

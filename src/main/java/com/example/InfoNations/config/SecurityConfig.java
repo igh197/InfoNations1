@@ -1,6 +1,6 @@
 package com.example.InfoNations.config;
 
-import jakarta.servlet.http.HttpSession;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -45,25 +45,21 @@ public class SecurityConfig implements WebMvcConfigurer {
                 //post request
 
                 .requestMatchers(HttpMethod.POST,"/user/new").permitAll()
-                .requestMatchers(HttpMethod.POST,"/nation/new").hasRole("USER")
-                .requestMatchers(HttpMethod.POST,"/nation/reple/{id}").hasRole("USER")
+                .requestMatchers(HttpMethod.POST,"/loginProc").permitAll()
+
+                .requestMatchers(HttpMethod.POST,"/nation/new").permitAll()
+                .requestMatchers(HttpMethod.POST,"/nation/reple/{name}").permitAll()
                 //get request
-                .requestMatchers(HttpMethod.GET,"nations/reple/{id}","/nations","/nation/{id}","/user/{id}").hasRole("USER")
+                .requestMatchers(HttpMethod.GET,"nations/reple/{name}","/nations","/nation/{name}","/user/{id}").permitAll()
 
                 //put request
-                .requestMatchers(HttpMethod.PUT,"/nation/{id}","/user/{id}").hasRole("USER")
+                .requestMatchers(HttpMethod.PUT,"/nation/{name}","/user/{id}").permitAll()
 
                 //delete request
                 .requestMatchers(HttpMethod.DELETE,"/nation/{id}").hasRole("USER")
                 .requestMatchers(HttpMethod.DELETE,"/user/{id}").hasRole("USER")
 
-                .and()
 
-                .formLogin()
-                .usernameParameter("username") // 계정 ID
-                .passwordParameter("password") //비밀번호
-                .loginProcessingUrl("/login") //스프링 시큐리티가 제공하는 로그인 인증 기능
-                .defaultSuccessUrl("/nations")
 
         // 로그아웃 처리 URL (= form action url)
         //.logoutSuccessUrl("/login") // 로그아웃 성공 후 targetUrl,

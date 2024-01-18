@@ -22,6 +22,7 @@ import java.util.Set;
 @Setter
 @Entity
 public class User implements UserDetails {
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,8 +31,10 @@ public class User implements UserDetails {
 
     private String password;
 
+    @Getter
     private String email;
     private String auth;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> roles = new HashSet<>();
@@ -40,6 +43,7 @@ public class User implements UserDetails {
         }
         return roles;
     }
+
 
     @Override
     public String getPassword() {
@@ -53,21 +57,22 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
         return true;
     }
+
 }
